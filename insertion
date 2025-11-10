@@ -1,0 +1,64 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+struct Node {
+int data;
+struct Node *next;
+};
+
+struct Node *start = NULL;
+
+void insert_first(int item) {
+struct Node *p = malloc(sizeof(struct Node));
+n->data = item;
+n->next = start;
+start= n;
+}
+
+void insert_end(int item) {
+struct Node *p = malloc(sizeof(struct Node)), *t = start;
+n->data = item;
+n->next = NULL;
+if (!start)
+ start = n;
+else {fgvcddd
+while (t->next) t = t->next;
+t->next = n;
+}
+}
+
+void insert_pos(int item, int p) {
+struct Node *n = malloc(sizeof(struct Node)), *t =  start;
+n->data = item;
+if (p == 1) {
+n->next =  start;
+start = n;
+return;
+}
+for (int i = 1; t && i < p - 1; i++) t = t->next;
+if (!t) return;
+n->next = t->next;
+t->next = n;
+}
+
+void display() {
+struct Node *t =  start;
+while (t) {
+printf("%d ", t->data);
+t = t->next;
+}
+printf("\n");
+}
+
+int main() {
+int c, item, p;
+while (1) {
+printf("1.Insert First 2.Insert Pos 3.Insert End 4.Display 5.Exit\n");
+scanf("%d", &c);
+if (c == 5) break;
+if (c == 1) { scanf("%d", &item); insert_first(item); }
+else if (c == 2) { scanf("%d%d", &item, &p); insert_pos(item, p); }
+else if (c == 3) { scanf("%d", &item); insert_end(item); }
+else if (c == 4) display();
+}
+}
