@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int info;
+    struct node* next;
+};
+
+struct node* createNode(int info) {
+    struct node* p = (struct node*)malloc(sizeof(struct node));
+    p->info = info;
+    p->next = NULL;
+    return p;
+}
+
+struct node* removeElements(struct node* start, int val) {
+
+    while (start != NULL && start->info == val) {
+        struct node* temp = start;
+        start = start->next;
+        free(temp);
+    }
+
+ 
+    struct node* follow = start;
+    while (follow != NULL) {
+        if (follow->next != NULL && follow->next->info == val) {
+            struct node* temp = follow->next;
+            follow->next = temp->next; 
+            free(temp);
+        } else {
+            follow = follow->next;      
+        }
+    }
+    return start;
+}
+
+void printList(struct node* start) {
+    while (start != NULL) {
+        printf("%d ", start->info);
+        start = start->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    int n, info, val;
+    struct node *start = NULL, *last = NULL, *p;
+
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
+
+    printf("Enter %d values:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &info);
+        p = createNode(info);
+
+        if (start == NULL) {
+            start = p;
+            last = p;
+        } else {
+            last->next = p;
+            last = p;
+        }
+    }
+
+    printf("Enter value to remove: ");
+    scanf("%d", &val);
+
+    start = removeElements(start, val);
+
+    printf("Updated list: ");
+    printList(start);
+
+    return 0;
+}
